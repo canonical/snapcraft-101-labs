@@ -1,0 +1,29 @@
+name: test-apps
+base: core20
+version: '0.1'
+summary: Snapcraft demo for apps
+description: |
+  Simple snap to exercise snapcraft apps
+
+grade: stable 
+confinement: strict
+
+apps:
+  test-apps:
+    command: test-apps.sh
+  hello:
+    command: hello.sh
+  adaemon:
+    command: adaemon.sh
+    daemon: simple
+
+parts:
+  test-apps:
+    source: test-apps
+    plugin: dump
+  hello:
+    source: hello
+    plugin: dump
+  adaemon:
+    source: adaemon
+    plugin: dump

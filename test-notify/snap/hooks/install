@@ -1,0 +1,4 @@
+#!/bin/sh -e
+echo "==== $SNAP_NAME intall hook"
+snapctl stop --disable ${SNAP_NAME}.notify
+snapctl stop --disable ${SNAP_NAME}.no-notify

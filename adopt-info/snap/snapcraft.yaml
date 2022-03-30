@@ -1,0 +1,18 @@
+name: test-adopt-info
+base: core20
+adopt-info: set-version
+summary: Set snap version 
+description: |
+  Boilerplate
+grade: devel
+confinement: strict
+
+parts:
+  set-version:
+    plugin: nil
+    source: set-version
+    override-pull: |
+      PROJECT_VERSION=$(cat $SNAPCRAFT_PROJECT_DIR/set-version/current)
+      GIT_REVISION=$(git rev-parse --short HEAD)
+      snapcraftctl set-version ${PROJECT_VERSION}-$(date +%Y%m%d%H%M%S)+${GIT_REVISION}
+    build-packages: [ git ]

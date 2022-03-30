@@ -1,0 +1,23 @@
+name: test-content-slot
+base: core20
+version: '0.1'
+summary: Snapcraft demo for content interface
+description: |
+  Simple snap to exercise content slot
+
+grade: stable 
+confinement: strict
+
+apps:
+  slot-exec:
+    command: bin/slot-exec.sh
+slots:
+  test-content-slot:
+    interface: content
+    content: executables
+    read: 
+    - $SNAP/bin
+parts:
+  shared:
+    source: shared
+    plugin: dump

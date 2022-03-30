@@ -1,0 +1,5 @@
+snap/.snapcraft.yaml.swp
+stage
+prime
+parts
+*amd64.snap

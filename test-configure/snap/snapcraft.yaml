@@ -1,0 +1,18 @@
+name: test-configure
+base: core20
+version: '0.1'
+summary: Demo some configure hook
+description: |
+  Demo some snap configure hook bits.
+
+grade: devel
+confinement: strict
+
+apps:
+  get:
+    command: configs
+
+parts:
+  get:
+    plugin: dump
+    source: get

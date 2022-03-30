@@ -1,0 +1,28 @@
+name: test-environment
+base: core20
+version: '0.1'
+summary: demo snap environment
+description: demo global and app environment vars
+grade: stable
+confinement: strict
+
+# set a snap-global environment variable
+environment:
+  TEST_ENV_GLOBAL: "test_env_global"
+
+   # an app to prove the app-specific variable is not set
+apps:
+   global-var:
+     command: echo.sh $TEST_ENV_GLOBAL 
+   no-app-var:
+     command: echo.sh $TEST_ENV_APP 
+   app-var:
+     command: echo.sh $TEST_ENV_APP
+     environment:
+       TEST_ENV_APP: test_env_app
+
+parts:
+  mypart:
+    plugin: dump
+    source: mypart
+

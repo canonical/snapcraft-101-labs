@@ -1,0 +1,22 @@
+name: test-content-plug
+base: core20
+version: '0.1'
+summary: Snapcraft demo for plug interface
+description: |
+  Simple snap to exercise snapcraft apps
+
+grade: stable 
+confinement: strict
+
+apps:
+  plug-exec:
+    command: plug-exec.sh
+plugs:
+  test-content-plug:
+    interface: content
+    content: executables
+    target: $SNAP/other-snap-bin
+parts:
+  myplugpart:
+    source: myplugpart
+    plugin: dump

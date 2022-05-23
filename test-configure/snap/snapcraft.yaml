@@ -9,10 +9,10 @@ grade: devel
 confinement: strict
 
 apps:
-  get:
+  show:
     command: configs
 
 parts:
-  get:
+  show:
     plugin: dump
-    source: get
+    source: ./show

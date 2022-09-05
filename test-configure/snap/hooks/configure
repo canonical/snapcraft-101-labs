@@ -1,6 +1,15 @@
 #!/bin/bash
+
+# set -x
+
+logger "Entering configure hook."
+
 age=`snapctl get age`
 speed=`snapctl get speed`
 
 echo "age: $age" >> $SNAP_DATA/config-log
 echo "speed: $speed" >> $SNAP_DATA/config-log
+
+logger "Leaving configure hook."
+
+# exit 1

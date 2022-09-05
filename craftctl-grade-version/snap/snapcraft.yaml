@@ -1,0 +1,28 @@
+name: grade-version
+summary: test simple usage of craftctl command
+description: |
+    Show how to use "craftctl set" to set
+    snap grade and version.,
+base: core22
+adopt-info: gv0
+confinement: strict
+
+#
+#  Run "snapcraft --verbose" to see "echo" output.
+#
+
+parts:
+  gv0:
+    plugin: nil
+    override-pull: |
+      craftctl set version=3.14159
+      craftctl set grade=stable
+    override-build:
+      echo "gv0, VERSION is $(craftctl get version)"
+      echo "gv0, GRADE is $(craftctl get grade)"
+  gv1:
+    after: [ gv0 ]
+    plugin: nil
+    override-build:
+      echo "gv1, VERSION is $(craftctl get version)"
+      echo "gv1, GRADE is $(craftctl get grade)"

@@ -17,12 +17,15 @@ parts:
     override-pull: |
       craftctl set version=3.14159
       craftctl set grade=stable
+      # craftctl default
     override-build:
       echo "gv0, VERSION is $(craftctl get version)"
       echo "gv0, GRADE is $(craftctl get grade)"
+      # craftctl default
   gv1:
     after: [ gv0 ]
     plugin: nil
     override-build:
       echo "gv1, VERSION is $(craftctl get version)"
       echo "gv1, GRADE is $(craftctl get grade)"
+      # craftctl default

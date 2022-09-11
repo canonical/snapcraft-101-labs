@@ -1,0 +1,28 @@
+name: basic-snap
+base: core22 # the base snap is the execution environment for this snap
+version: '0.99'
+summary: Demo snap to show basic snap features.
+description: |
+  Snap to demo numerous basic snap properties and operations.
+
+grade: devel
+confinement: devmode
+
+apps:
+  basic-snap:
+    command: basic.sh
+  hello:
+    command: hello.sh
+  hi:
+    command: d1/d2/hi.sh
+
+parts:
+  basic:
+    source: src
+    plugin: dump
+  hello:
+    source: src
+    plugin: dump
+  hi:
+    source: src
+    plugin: dump

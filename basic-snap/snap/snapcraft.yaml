@@ -18,11 +18,11 @@ apps:
 
 parts:
   basic:
-    source: src
+    source: src1/
     plugin: dump
   hello:
-    source: src
+    source: src2/
     plugin: dump
   hi:
-    source: src
+    source: src3/
     plugin: dump

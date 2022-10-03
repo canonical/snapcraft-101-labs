@@ -1,0 +1,2 @@
+#!/bin/bash
+logger -t ${SNAP} "Running inout0 install hook."

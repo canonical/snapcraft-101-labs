@@ -1,0 +1,17 @@
+name: inout1
+base: core22
+version: '0.1'
+summary: inout1, have the install hook "fail"
+description: |
+  This is my-snap's description. You have a paragraph or two to tell the
+  most important story about your snap. Keep it under 100 words though,
+  we live in tweetspace and your description wants to look good in the snap
+  store.
+
+grade: devel
+confinement: devmode
+
+parts:
+  my-part:
+    # See 'snapcraft plugins'
+    plugin: nil

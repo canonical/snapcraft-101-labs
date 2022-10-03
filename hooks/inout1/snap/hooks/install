@@ -1,0 +1,4 @@
+#!/bin/bash
+
+logger -t ${SNAP} "Running inout1 install hook and failing."
+exit 1

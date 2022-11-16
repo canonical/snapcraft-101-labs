@@ -1,5 +1,0 @@
-#!/bin/sh -e
-echo "==== $SNAP_NAME intall hook"
-snapctl stop ${SNAP_NAME}.watchdog-notify --disable
-snapctl stop ${SNAP_NAME}.watchdog-no-notify --disable
-

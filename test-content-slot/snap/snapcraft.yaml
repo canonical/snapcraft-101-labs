@@ -12,7 +12,7 @@ apps:
   slot-exec:
     command: bin/slot-exec.sh
 slots:
-  test-content-slot:
+  share-execs-slot:
     interface: content
     content: executables
     read: 

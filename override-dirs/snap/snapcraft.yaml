@@ -1,0 +1,20 @@
+name: override-dirs
+base: core22
+version: '0.1'
+summary: Display override working directories
+description: boilerplate
+
+grade: devel
+confinement: strict
+
+parts:
+  dirs:
+    plugin: nil
+    override-pull: |
+      echo "override-pull working dir is: $(pwd)"
+    override-build: |
+      echo "override-build working dir is: $(pwd)"
+    override-stage: |
+      echo "override-stage working dir is: $(pwd)"
+    override-prime: |
+      echo "override-prime working dir is: $(pwd)"

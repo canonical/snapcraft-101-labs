@@ -1,0 +1,27 @@
+name: snapctleg
+base: core22
+version: '0.1'
+summary: Demo of starting daemon with snapctl.
+description: |
+  How to use 'snapctl' command to start a daemon
+
+grade: stable 
+confinement: strict
+
+apps:
+  start:
+    command: start.sh
+  stop:
+    command: stop.sh
+  daemon:
+    command: daemon.sh
+    daemon: simple
+    install-mode: disable
+
+parts:
+  cmds:
+    source: scripts
+    plugin: dump
+  daemon:
+    source: daemon
+    plugin: dump

@@ -1,0 +1,25 @@
+name: ld1
+base: core22
+version: '0.1'
+summary: demo setting LD_LIBRARY_PATH
+description: |
+  Demonstrate tweaking LD_LIBRARY_PATH for a single app.
+
+grade: stable
+confinement: strict
+
+apps:
+  caller:
+    command: caller.sh
+    environment:
+      LD_LIBRARY_PATH: "${SNAP}/mylibs"
+  callee:
+    command: callee.sh
+
+parts:
+  c1:
+    source: caller
+    plugin: dump
+  c2:
+    source: callee
+    plugin: dump

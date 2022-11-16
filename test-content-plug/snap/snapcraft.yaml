@@ -12,7 +12,7 @@ apps:
   plug-exec:
     command: plug-exec.sh
 plugs:
-  test-content-plug:
+  share-execs-plug:
     interface: content
     content: executables
     target: $SNAP/other-snap-bin

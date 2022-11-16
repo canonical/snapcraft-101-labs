@@ -1,0 +1,29 @@
+name: env2
+base: core22
+version: '0.1'
+summary: show how to set run-time environment
+description: |
+  Demonstrate how to set both pre-app and global run-time
+  environment variables.
+
+grade: stable
+confinement: strict
+
+environment:
+  FLAVOUR: "vanilla"
+
+apps:
+  caller:
+    command: caller.sh
+    environment:
+      FLAVOUR: "crunchyfrog"
+  callee:
+    command: callee.sh
+
+parts:
+  c1:
+    source: caller
+    plugin: dump
+  c2:
+    source: callee
+    plugin: dump

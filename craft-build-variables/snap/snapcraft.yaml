@@ -1,0 +1,24 @@
+name: parts-variables
+summary: display various core22 parts variables
+description: |
+    Display the various parts variables available
+    to the build process.
+base: core22
+confinement: strict
+version: "0.99"
+
+parts:
+  mypart:
+    plugin: nil
+    override-pull:
+      echo "===== COMMON STEP VARIABLES ====="
+      echo "CRAFT_PROJECT_NAME = ${CRAFT_PROJECT_NAME}"
+      echo "CRAFT_PROJECT_DIR = ${CRAFT_PROJECT_DIR}"
+      echo "CRAFT_STAGE = ${CRAFT_STAGE}"
+      echo "CRAFT_PRIME = ${CRAFT_PRIME}"
+      echo "===== STEP-SPECIFIC VARIABLES ====="
+      echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
+      echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
+      echo "CRAFT_PART_SRC = ${CRAFT_PART_SRC}"
+      echo "CRAFT_PART_BUILD = ${CRAFT_PART_BUILD}"
+      echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"

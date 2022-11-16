@@ -1,0 +1,3 @@
+#!/bin/bash
+
+logger -t ${SNAP} "Running inout1 remove hook."

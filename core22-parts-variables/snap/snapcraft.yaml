@@ -1,0 +1,67 @@
+name: parts-variables
+summary: display various core22 parts variables
+description: |
+    Display the various parts variables available
+    to the build process.
+base: core22
+confinement: strict
+version: "0.99"
+
+parts:
+  global:
+    plugin: nil
+    override-pull:
+      echo "===== GLOBAL VARIABLES ====="
+      echo "CRAFT_PROJECT_NAME = ${CRAFT_PROJECT_NAME}"
+      echo "CRAFT_PROJECT_DIR = ${CRAFT_PROJECT_DIR}"
+      echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
+      echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
+      echo "CRAFT_PARALLEL_BUILD_COUNT = ${CRAFT_PARALLEL_BUILD_COUNT}"
+      echo "CRAFT_TARGET_ARCH = ${CRAFT_TARGET_ARCH}"
+      echo "CRAFT_ARCH_TRIPLET = ${CRAFT_ARCH_TRIPLET}"
+      echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"
+      echo "CRAFT_STAGE = ${CRAFT_STAGE}"
+      echo "CRAFT_PRIME = ${CRAFT_PRIME}"
+  steps:
+    plugin: nil
+    after: [ global ]
+    override-pull:
+      echo "===== PULL VARIABLES ====="
+      echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
+      echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
+      echo "CRAFT_PART_SRC = ${CRAFT_PART_SRC}"
+      echo "CRAFT_PART_SRC_WORK = ${CRAFT_PART_SRC_WORK}"
+      echo "CRAFT_PART_BUILD = ${CRAFT_PART_BUILD}"
+      echo "CRAFT_PART_BUILD_WORK = ${CRAFT_PART_BUILD_WORK}"
+      echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"
+      echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"
+    override-build:
+      echo "===== BUILD VARIABLES ====="
+      echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
+      echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
+      echo "CRAFT_PART_SRC = ${CRAFT_PART_SRC}"
+      echo "CRAFT_PART_SRC_WORK = ${CRAFT_PART_SRC_WORK}"
+      echo "CRAFT_PART_BUILD = ${CRAFT_PART_BUILD}"
+      echo "CRAFT_PART_BUILD_WORK = ${CRAFT_PART_BUILD_WORK}"
+      echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"
+      echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"
+    override-stage:
+      echo "===== STAGE VARIABLES ====="
+      echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
+      echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
+      echo "CRAFT_PART_SRC = ${CRAFT_PART_SRC}"
+      echo "CRAFT_PART_SRC_WORK = ${CRAFT_PART_SRC_WORK}"
+      echo "CRAFT_PART_BUILD = ${CRAFT_PART_BUILD}"
+      echo "CRAFT_PART_BUILD_WORK = ${CRAFT_PART_BUILD_WORK}"
+      echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"
+      echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"
+    override-prime:
+      echo "===== PRIME VARIABLES ====="
+      echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
+      echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
+      echo "CRAFT_PART_SRC = ${CRAFT_PART_SRC}"
+      echo "CRAFT_PART_SRC_WORK = ${CRAFT_PART_SRC_WORK}"
+      echo "CRAFT_PART_BUILD = ${CRAFT_PART_BUILD}"
+      echo "CRAFT_PART_BUILD_WORK = ${CRAFT_PART_BUILD_WORK}"
+      echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"
+      echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"

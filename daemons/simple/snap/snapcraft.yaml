@@ -1,0 +1,26 @@
+name: dms
+base: core22
+version: '0.1'
+summary: Demo of simple daemons`
+description: |
+  Two sample daemons: active and inactive
+
+grade: stable 
+confinement: strict
+
+apps:
+  dm1:
+    command: daemon1.sh
+    daemon: simple
+  dm2:
+    command: daemon2.sh
+    daemon: simple
+    install-mode: disable   # do not run initially
+
+parts:
+  daemon1:
+    source: daemon1
+    plugin: dump
+  daemon2:
+    source: daemon2
+    plugin: dump

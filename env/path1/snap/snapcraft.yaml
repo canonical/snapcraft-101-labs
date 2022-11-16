@@ -1,0 +1,25 @@
+name: path1
+base: core22
+version: '0.1'
+summary: demo for one script calling another
+description: |
+  Show how one script app can call another. This example
+  should fail as the callee.sh script will not be found
+  on the default run-time search path.
+
+grade: stable
+confinement: strict
+
+apps:
+  caller:
+    command: caller.sh
+  callee:
+    command: callee.sh
+
+parts:
+  c1:
+    source: caller
+    plugin: dump
+  c2:
+    source: callee
+    plugin: dump

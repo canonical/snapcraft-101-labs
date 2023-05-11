@@ -10,7 +10,7 @@ version: "0.99"
 parts:
   mypart:
     plugin: nil
-    override-pull:
+    override-pull: |
       echo "===== COMMON STEP VARIABLES ====="
       echo "CRAFT_PROJECT_NAME = ${CRAFT_PROJECT_NAME}"
       echo "CRAFT_PROJECT_DIR = ${CRAFT_PROJECT_DIR}"

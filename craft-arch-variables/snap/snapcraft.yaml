@@ -1,0 +1,17 @@
+name: craft-arch-variables
+summary: display core22 architecture-related variables
+description: |
+    Display the various arch-related variables available
+    to the build process.
+base: core22
+confinement: strict
+version: "0.99"
+
+parts:
+  mypart:
+    plugin: nil
+    override-pull: |
+      echo "===== ARCH-RELATED VARIABLES ====="
+      echo "SNAP_ARCH = ${SNAP_ARCH}"
+      echo "CRAFT_TARGET_ARCH = ${CRAFT_TARGET_ARCH}"
+      echo "CRAFT_ARCH_TRIPLET = ${CRAFT_ARCH_TRIPLET}"

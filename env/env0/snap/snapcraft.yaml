@@ -1,7 +1,7 @@
 name: env0
 base: core22
 version: '0.1'
-summary: demo for how to set environment variabls
+summary: demo for how to set environment variables
 description: |
   Show how to set environment variables in snapcraft.yaml.
 

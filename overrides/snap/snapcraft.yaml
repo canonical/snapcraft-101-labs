@@ -1,0 +1,20 @@
+name: overrides
+summary: Show how overrides work
+description: |
+    Show how overrides work.
+base: core22
+confinement: strict
+version: "0.99"
+
+parts:
+  mypart:
+    plugin: nil
+    override-pull: |
+      echo "Running override-pull"
+    override-build: |
+      echo "Running override-build"
+    override-stage: |
+      echo "Running override-stage"
+    override-prime: |
+      echo "Running override-prime"
+

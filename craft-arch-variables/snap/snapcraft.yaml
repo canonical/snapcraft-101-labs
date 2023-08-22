@@ -11,7 +11,6 @@ parts:
   mypart:
     plugin: nil
     override-pull: |
-      echo "===== ARCH-RELATED VARIABLES ====="
       echo "SNAP_ARCH = ${SNAP_ARCH}"
       echo "CRAFT_TARGET_ARCH = ${CRAFT_TARGET_ARCH}"
       echo "CRAFT_ARCH_TRIPLET = ${CRAFT_ARCH_TRIPLET}"

@@ -1,2 +1,2 @@
 #!/bin/bash
-snapctl start snapctleg.daemon --enable
+snapctl start ${SNAP_NAME}.daemon --enable

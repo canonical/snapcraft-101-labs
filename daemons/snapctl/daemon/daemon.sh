@@ -1,4 +1,4 @@
 #!/bin/bash
 while true ; do
-    echo "snapctleg daemon is running" ; sleep 1
+    echo "${SNAP_NAME} daemon is running" ; sleep 1
 done

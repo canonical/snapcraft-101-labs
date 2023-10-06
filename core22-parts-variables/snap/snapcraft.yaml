@@ -10,7 +10,7 @@ version: "0.99"
 parts:
   global:
     plugin: nil
-    override-pull:
+    override-pull: |
       echo "===== GLOBAL VARIABLES ====="
       echo "CRAFT_PROJECT_NAME = ${CRAFT_PROJECT_NAME}"
       echo "CRAFT_PROJECT_DIR = ${CRAFT_PROJECT_DIR}"
@@ -25,7 +25,7 @@ parts:
   steps:
     plugin: nil
     after: [ global ]
-    override-pull:
+    override-pull: |
       echo "===== PULL VARIABLES ====="
       echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
       echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
@@ -35,7 +35,7 @@ parts:
       echo "CRAFT_PART_BUILD_WORK = ${CRAFT_PART_BUILD_WORK}"
       echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"
       echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"
-    override-build:
+    override-build: |
       echo "===== BUILD VARIABLES ====="
       echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
       echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
@@ -45,7 +45,7 @@ parts:
       echo "CRAFT_PART_BUILD_WORK = ${CRAFT_PART_BUILD_WORK}"
       echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"
       echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"
-    override-stage:
+    override-stage: |
       echo "===== STAGE VARIABLES ====="
       echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
       echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"
@@ -55,7 +55,7 @@ parts:
       echo "CRAFT_PART_BUILD_WORK = ${CRAFT_PART_BUILD_WORK}"
       echo "CRAFT_PART_INSTALL = ${CRAFT_PART_INSTALL}"
       echo "CRAFT_OVERLAY = ${CRAFT_OVERLAY}"
-    override-prime:
+    override-prime: |
       echo "===== PRIME VARIABLES ====="
       echo "CRAFT_PART_NAME = ${CRAFT_PART_NAME}"
       echo "CRAFT_STEP_NAME = ${CRAFT_STEP_NAME}"

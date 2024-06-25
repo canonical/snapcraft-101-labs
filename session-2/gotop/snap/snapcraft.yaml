@@ -54,3 +54,7 @@ parts:
       # Because we are handling the build manually, we must also handle the installation manually.
       install -Dm755 "${CRAFT_PART_BUILD}/gotop" \
         "${CRAFT_PART_INSTALL}/usr/bin/gotop"
+
+      # Install the upstream license file
+      install -Dm644 "${CRAFT_PART_BUILD}/LICENSE" \
+        "${CRAFT_PART_INSTALL}/licenses/gotop"

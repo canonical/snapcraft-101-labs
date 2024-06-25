@@ -22,3 +22,17 @@ Then start the build:
 ```
   snapcraft
 ```
+
+## Installing
+
+To install the snap with devmode confinment:
+
+```
+  snap install --devmode gotop_*.snap
+```
+
+To install the snap with strict confinement:
+
+```
+  snap install --jailmode --dangerous gotop_*.snap
+```

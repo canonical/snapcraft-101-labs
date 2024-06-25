@@ -11,4 +11,14 @@ TBD
 
 ## Building
 
-TBD
+In order to build the snap, install snapcraft 8.x:
+
+```
+  snap install --classic --channel=8.x/stable snapcraft
+```
+
+Then start the build:
+
+```
+  snapcraft
+```

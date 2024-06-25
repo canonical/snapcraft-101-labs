@@ -34,6 +34,9 @@ apps:
   # This way is more clean and intuitive
   gotop:
     command: usr/bin/gotop
+    environment:
+      # Specify a sufficiently generic and conformant terminal emulator
+      TERM: xterm
 
 # The 'parts' of this snap constitute all of the components that go into building the final package
 parts:

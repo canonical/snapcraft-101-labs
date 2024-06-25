@@ -45,6 +45,8 @@ apps:
     environment:
       # Specify a sufficiently generic and conformant terminal emulator
       TERM: xterm
+      # Override the location of the blkid.tab file and put it somewhere blkid can write to
+      BLKID_FILE: "${SNAP_COMMON}/blkid.tab"
 
 # The 'parts' of this snap constitute all of the components that go into building the final package
 parts:

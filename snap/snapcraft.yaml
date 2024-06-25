@@ -73,3 +73,7 @@ parts:
       # Install the upstream license file
       install -Dm644 "${CRAFT_PART_BUILD}/LICENSE" \
         "${CRAFT_PART_INSTALL}/licenses/gotop"
+
+      # Install the snap license file
+      install -Dm644 "${CRAFT_PROJECT_DIR}/LICENSE" \
+        "${CRAFT_PART_INSTALL}/licenses/snap"

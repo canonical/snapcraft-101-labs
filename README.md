@@ -23,6 +23,24 @@ Then start the build:
   snapcraft
 ```
 
+Note that this snap is built with `SNAPCRAFT_BUILD_INFO=1` to include a
+`manifest.yaml` and `snapcraft.yaml` in the final snap package, enabling the
+store to notify us of any USNs which get published for this snap.
+
+In order to take in the updates those USNs inform us of, we should also include
+our Pro token for our builds via either:
+
+```
+  snapcraft --ua-token <token>
+```
+
+or by exporting
+
+```
+  SNAPCRAFT_UA_TOKEN=<token>
+```
+
+
 ## Installing
 
 To install the snap with devmode confinment:

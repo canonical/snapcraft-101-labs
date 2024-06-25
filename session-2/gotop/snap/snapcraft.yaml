@@ -50,3 +50,7 @@ parts:
       # We can collect this information from e.g. the upstream's README
 
       go build -o "${CRAFT_PART_BUILD}/gotop" "${CRAFT_PART_BUILD}/cmd/gotop"
+
+      # Because we are handling the build manually, we must also handle the installation manually.
+      install -Dm755 "${CRAFT_PART_BUILD}/gotop" \
+        "${CRAFT_PART_INSTALL}/usr/bin/gotop"

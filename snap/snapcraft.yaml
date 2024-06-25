@@ -34,6 +34,13 @@ apps:
   # This way is more clean and intuitive
   gotop:
     command: usr/bin/gotop
+    # As this is a system observer application, we require a few -observe interfaces
+    plugs:
+      - hardware-observe
+      - mount-observe
+      - network-observe
+      - process-control
+      - system-observe
     environment:
       # Specify a sufficiently generic and conformant terminal emulator
       TERM: xterm

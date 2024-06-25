@@ -26,3 +26,24 @@ license: "CC-BY-SA-4.0 AND MIT"
 # Leave grade and confinement as devel and devmode until we're ready for a release.
 grade: devel
 confinement: devmode
+
+# The 'apps' section defines what applications our snap is expected to expose to users
+apps:
+  # Again, the name is arbitrary; in this case, users can start gotop by executing 'gotop'
+  # If we called this app 'top', users could start it by using 'gotop.top'
+  # This way is more clean and intuitive
+  gotop:
+    command: usr/bin/gotop
+
+# The 'parts' of this snap constitute all of the components that go into building the final package
+parts:
+  # This name is arbitrary; we could choose many names
+  gotop:
+    # The go plugin does not work with the gotop build system, so handle it manually
+    plugin: nil
+    source: https://github.com/xxxserxxx/gotop/archive/refs/tags/v4.2.0.tar.gz
+    source-checksum: e9d9041903acb6bd3ffe94e0a02e69eea53f1128274da1bfe00fe44331ccceb1
+    override-build: |
+      # We can collect this information from e.g. the upstream's README
+
+      go build -o "${CRAFT_PART_BUILD}/gotop" "${CRAFT_PART_BUILD}/cmd/gotop"

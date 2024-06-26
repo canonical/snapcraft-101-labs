@@ -58,6 +58,8 @@ parts:
     source-type: git
     source-depth: 1
     source-tag: v4.2.0
+    # UPX is used to compress our final binary to dramatically reduce snap size
+    build-packages: [upx-ucl]
     # golang is required to build gotop, and it isn't available in our build environment
     build-snaps: [go]
     override-build: |
@@ -72,6 +74,8 @@ parts:
       go build -o "${CRAFT_PART_INSTALL}/gotop" \
         -ldflags "-X main.Version=v${VER}.${SUBVER} -X main.BuildDate=${DATE} -s -w" \
         ./cmd/gotop
+
+      upx --best --lzma "${CRAFT_PART_INSTALL}/gotop"
 
       craftctl set version="${VER}.${SUBVER}"
 

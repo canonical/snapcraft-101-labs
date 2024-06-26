@@ -27,6 +27,18 @@ license: "CC-BY-SA-4.0 AND MIT"
 grade: devel
 confinement: devmode
 
+# Because "amd64" is a valid platform, using it as a platform name is shorthand for:
+# amd64:
+#   build-on:  [amd64]
+#   build-for: [amd64]
+platforms:
+  amd64:
+  arm64:
+  armhf:
+  ppc64el:
+  riscv64:
+  s390x:
+
 # The 'apps' section defines what applications our snap is expected to expose to users
 apps:
   # Again, the name is arbitrary; in this case, users can start gotop by executing 'gotop'

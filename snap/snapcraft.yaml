@@ -77,3 +77,9 @@ parts:
       # Install the snap license file
       install -Dm644 "${CRAFT_PROJECT_DIR}/LICENSE" \
         "${CRAFT_PART_INSTALL}/licenses/snap"
+    # Shrink the size of the snap by removing everything from util-linux except blkid
+    stage:
+      - licenses/
+      - usr/bin/gotop
+      - usr/sbin/blkid
+      - usr/share/doc/util-linux/copyright

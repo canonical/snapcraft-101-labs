@@ -100,6 +100,12 @@ parts:
         - GOARCH: ${CRAFT_ARCH_BUILD_FOR}
       - on amd64 to s390x:
         - GOARCH: ${CRAFT_ARCH_BUILD_FOR}
+    override-pull: |
+      craftctl default
+
+      if [ "${CRAFT_ARCH_BUILD_FOR}" = "riscv64" ] || [ "${CRAFT_ARCH_BUILD_FOR}" = "s390x" ]; then
+        patch -p1 < "${CRAFT_PROJECT_DIR}/patches/0001-logging-add-support-for-riscv64.patch"
+      fi
     override-build: |
       # We can collect this information from e.g. the upstream's README
 

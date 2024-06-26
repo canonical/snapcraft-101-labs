@@ -58,8 +58,6 @@ parts:
     source-type: git
     source-depth: 1
     source-tag: v4.2.0
-    # gotop may use blkid though it may not be required depending on how gotop is used
-    stage-packages: [util-linux]
     # golang is required to build gotop, and it isn't available in our build environment
     build-snaps: [go]
     override-build: |
@@ -87,10 +85,3 @@ parts:
     # Leverage organize to consolidate the binaries
     organize:
       gotop:          usr/bin/gotop
-      usr/sbin/blkid: usr/bin/blkid
-    # Shrink the size of the snap by removing everything from util-linux except blkid
-    stage:
-      - licenses/
-      - usr/bin/blkid
-      - usr/bin/gotop
-      - usr/share/doc/util-linux/copyright

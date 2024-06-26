@@ -31,13 +31,26 @@ confinement: devmode
 # amd64:
 #   build-on:  [amd64]
 #   build-for: [amd64]
+# The real power in platforms is in allowing the cross-building of snaps.
+# Here, the snap can be built on either amd64 or $CRAFT_TARGET_ARCH to produce
+# a snap  for $CRAFT_TARGET_ARCH systems.
 platforms:
   amd64:
   arm64:
+    build-on:  [amd64, arm64]
+    build-for: [arm64]
   armhf:
+    build-on:  [amd64, armhf]
+    build-for: [armhf]
   ppc64el:
+    build-on:  [amd64, ppc64el]
+    build-for: [ppc64el]
   riscv64:
+    build-on:  [amd64, riscv64]
+    build-for: [riscv64]
   s390x:
+    build-on:  [amd64, s390x]
+    build-for: [s390x]
 
 # The 'apps' section defines what applications our snap is expected to expose to users
 apps:
@@ -74,6 +87,19 @@ parts:
     build-packages: [upx-ucl]
     # golang is required to build gotop, and it isn't available in our build environment
     build-snaps: [go]
+    build-environment:
+      # TODO: once https://github.com/canonical/craft-grammar/issues/31 is fixed,
+      # the to {arm64,riscv64,s390x} lines can be consolidated via advanced grammar.
+      - on amd64 to arm64:
+        - GOARCH: ${CRAFT_ARCH_BUILD_FOR}
+      - on amd64 to armhf:
+        - GOARCH: arm
+      - on amd64 to ppc64el:
+        - GOARCH: ppc64le
+      - on amd64 to riscv64:
+        - GOARCH: ${CRAFT_ARCH_BUILD_FOR}
+      - on amd64 to s390x:
+        - GOARCH: ${CRAFT_ARCH_BUILD_FOR}
     override-build: |
       # We can collect this information from e.g. the upstream's README
 

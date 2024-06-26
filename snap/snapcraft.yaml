@@ -119,7 +119,9 @@ parts:
         -ldflags "-X main.Version=v${VER}.${SUBVER} -X main.BuildDate=${DATE} -s -w" \
         ./cmd/gotop
 
-      upx --best --lzma "${CRAFT_PART_INSTALL}/gotop"
+      if [ "${CRAFT_ARCH_BUILD_FOR}" != "riscv64" ] && [ "${CRAFT_ARCH_BUILD_FOR}" != "s390x" ]; then
+        upx --best --lzma "${CRAFT_PART_INSTALL}/gotop"
+      fi
 
       craftctl set version="${VER}.${SUBVER}"
 

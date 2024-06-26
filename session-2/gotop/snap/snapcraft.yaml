@@ -72,7 +72,7 @@ parts:
       DATE="$(date +%Y%m%dT%H%M%S)"
 
       go build -o "${CRAFT_PART_INSTALL}/gotop" \
-        -ldflags "-X main.Version=v${VER}.${SUBVER} -X main.BuildDate=${DATE}" \
+        -ldflags "-X main.Version=v${VER}.${SUBVER} -X main.BuildDate=${DATE} -s -w" \
         ./cmd/gotop
 
       craftctl set version="${VER}.${SUBVER}"

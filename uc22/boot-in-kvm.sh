@@ -7,8 +7,8 @@ sudo qemu-system-x86_64 \
  -global ICH9-LPC.disable_s3=1 \
  -net nic,model=virtio \
  -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::8090-:80  \
- -drive file=/usr/share/OVMF/OVMF_CODE.secboot.fd,if=pflash,format=raw,unit=0,readonly=on \
- -drive file=/usr/share/OVMF/OVMF_VARS.ms.fd,if=pflash,format=raw,unit=1 \
+ -drive file=/usr/share/OVMF/OVMF_CODE_4M.secboot.fd,if=pflash,format=raw,unit=0,readonly=on \
+ -drive file=/usr/share/OVMF/OVMF_VARS_4M.ms.fd,if=pflash,format=raw,unit=1 \
  -drive "file=${1}",if=none,format=raw,id=disk1 \
  -device virtio-blk-pci,drive=disk1,bootindex=1 \
  -serial mon:stdio

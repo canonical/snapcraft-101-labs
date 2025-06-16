@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+set_default_if_unset() {
+	variable="$1"
+	default_value="$2"
+
+	[ -n "$(snapctl get "$variable")" ] ||
+		snapctl set "$variable"="$default_value"
+}
+
+# Ensure that defaults are set
+set_default_if_unset message "Hello from ${SNAP_NAME} (rev. ${SNAP_REVISION})!"
+set_default_if_unset host    "127.0.0.1"
+set_default_if_unset port    1234
+
+# If "daemon" service is active, restart it!
+snapctl restart "${SNAP_NAME}.daemon"

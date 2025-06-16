@@ -1,0 +1,24 @@
+name: web-server-content
+base: core24
+version: '0.1'
+summary: Provides content for the web-server snap
+description: |
+  What it says on the tin!
+
+grade: devel
+confinement: strict
+
+slots:
+  web-content:
+    interface: content
+    content: www
+    source:
+      read:
+        - $SNAP/html
+
+parts:
+  web-content:
+    plugin: dump
+    source: ./html
+    organize:
+      '*': html/

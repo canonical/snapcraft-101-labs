@@ -1,0 +1,35 @@
+name: simple-server
+base: core24
+version: '0.1'
+summary: A simple server.
+description: |
+  A simple server implemented using ncat.
+
+grade: devel
+confinement: strict
+
+apps:
+  simple-server:
+    command: usr/bin/simple-server.sh
+  daemon:
+    command: usr/bin/simple-server.sh
+    # Daemon is 'simple', it doesn't run once and exit like a 'oneshot', or
+    #   fork into the background like a 'forking' daemon
+    daemon: simple
+    # Ensure that the daemon starts automatically (default behavior)
+    install-mode: enable
+    plugs:
+      - network
+      - network-bind
+
+parts:
+  pkgs:
+    plugin: nil
+    stage-packages:
+      - ncat
+
+  scripts:
+    plugin: dump
+    source: ./scripts
+    organize:
+      '*': usr/bin/

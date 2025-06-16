@@ -1,0 +1,65 @@
+name: web-server
+base: core24
+version: '0.1'
+summary: Basic configurable web server.
+description: |
+  This is a basic web server snap based on Lighttpd.
+
+grade: devel
+confinement: strict
+
+plugs:
+  web-content:
+    interface: content
+    content: www
+    target: $SNAP/var/www
+
+layout:
+  /var/www:
+    symlink: $SNAP/var/www
+
+  /etc/lighttpd:
+    symlink: $SNAP/etc/lighttpd
+
+  /usr/share/lighttpd:
+    symlink: $SNAP/usr/share/lighttpd
+
+  /var/cache/lighttpd:
+    symlink: $SNAP_COMMON/cache
+
+  /var/log/lighttpd:
+    symlink: $SNAP_COMMON/logs
+
+apps:
+  web-server:
+    command: web-server.sh
+    daemon: simple
+    plugs:
+      - network-bind
+
+parts:
+  pkgs:
+    plugin: nil
+    stage-packages:
+      - lighttpd
+      - perl
+    override-prime: |
+      # Prime like normal
+      craftctl default
+
+      # Modify the config
+      sed \
+        -e "/www-data/d" \
+        -e "s|/run/|/tmp/|" \
+        -i "${CRAFT_PRIME}/etc/lighttpd/lighttpd.conf"
+
+      # Point the perl scripts to the right place
+      find "${CRAFT_PRIME}/usr/share/lighttpd" -name '*.pl' | while read -r file
+      do
+        sed -re "s|#! ?/usr/bin/|#!/usr/bin/env -S |" \
+          -i "$file"
+      done
+
+  scripts:
+    plugin: dump
+    source: ./scripts

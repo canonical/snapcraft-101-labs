@@ -3,11 +3,16 @@
 This is a snap of [gotop](https://github.com/xxxserxxx/gotop), a terminal-based
 graphical activity monitor.
 
-
 ## Explanation
 
-TBD
+This snap should be capable of showing useful hardware information statistics,
+such as running process or CPU and RAM utilization. If it is not, please ensure
+its interfaces are connected:
 
+```
+  snap connect gotop:hardware-observe
+  # etc...
+```
 
 ## Building
 
@@ -23,23 +28,17 @@ Then start the build:
   snapcraft
 ```
 
-Note that this snap is built with `SNAPCRAFT_BUILD_INFO=1` to include a
-`manifest.yaml` and `snapcraft.yaml` in the final snap package, enabling the
-store to notify us of any USNs which get published for this snap.
+Snaps must include a `manifest.yaml` in the final snap package so that
+the store to notify publishers and collaborators of USNs published for any
+of this snap's debian package dependencies. This can be done by setting
+`SNAPCRAFT_BUILD_INFO=1` before building the snap.
 
 In order to take in the updates those USNs inform us of, we should also include
-our Pro token for our builds via either:
-
-```
-  snapcraft --ua-token <token>
-```
-
-or by exporting
+our Pro token for our builds:
 
 ```
   SNAPCRAFT_UA_TOKEN=<token>
 ```
-
 
 ## Installing
 

@@ -1,0 +1,91 @@
+name: gotop
+base: core24
+adopt-info: gotop
+summary: A terminal based graphical activity monitor inspired by gtop and vtop
+description: |
+  This is an unofficial build of gotop as a snap package.
+
+  This is meant solely as an example for how a "simple" snap could be
+  constructed, and the process by which that should be accomplished.
+
+  The work in this repository belongs to Canonical and is licensed CC-BY-SA-4.0
+  The contents of this snap which aren't works from this repository are licensed
+  MIT.
+
+website: https://github.com/xxxserxxx/gotop
+# We might want to link to issues in the future,
+# but we shouldn't direct people to upstream
+#issues: <future URL>
+
+# The source code for this snap package may be hosted on e.g. GitHub:
+#source-code: <future URL>
+
+# The license specified includes the license of all artifacts distributed by the snap
+license: "CC-BY-SA-4.0 AND MIT"
+
+# Leave grade and confinement as devel and devmode until we're ready for a release.
+grade: devel
+confinement: devmode
+
+# The 'apps' section defines what applications our snap is expected to expose to users
+apps:
+  # Again, the name is arbitrary; in this case, users can start gotop by executing 'gotop'
+  # If we called this app 'top', users could start it by using 'gotop.top'
+  # This way is more clean and intuitive
+  gotop:
+    command: usr/bin/gotop
+    # As this is a system observer application, we require a few interfaces
+    plugs:
+      - block-devices
+      - hardware-observe
+      - mount-observe
+      - network-observe
+      - process-control
+      - system-observe
+    environment:
+      # Specify a sufficiently generic and conformant terminal emulator
+      TERM: xterm
+      # Override the location of the blkid.tab file and put it somewhere blkid can write to
+      BLKID_FILE: "${SNAP_COMMON}/blkid.tab"
+
+# The 'parts' of this snap constitute all of the components that go into building the final package
+parts:
+  # This name is arbitrary; we could choose many names
+  gotop:
+    # The go plugin does not work with the gotop build system, so handle it manually
+    plugin: nil
+    source: https://github.com/xxxserxxx/gotop
+    source-type: git
+    source-depth: 1
+    source-tag: v4.2.0
+    # UPX is used to compress our final binary to dramatically reduce snap size
+    build-packages: [upx-ucl]
+    # golang is required to build gotop, and it isn't available in our build environment
+    build-snaps: [go]
+    override-build: |
+      # We can collect this information from e.g. the upstream's README
+
+      VER="$(git tag -l --sort=-v:refname |\
+             sed 's/v\([^-].*\)/\1/g' | tr -d '-' )"
+      SUBVER="$(git describe --long --tags |\
+                sed 's/\([^-].*\)-\([0-9]*\)-\(g.*\)/r\2.\3/g' | tr -d '-')"
+      DATE="$(date +%Y%m%dT%H%M%S)"
+
+      go build -o "${CRAFT_PART_INSTALL}/gotop" \
+        -ldflags "-X main.Version=v${VER}.${SUBVER} -X main.BuildDate=${DATE} -s -w" \
+        ./cmd/gotop
+
+      upx --best --lzma "${CRAFT_PART_INSTALL}/gotop"
+
+      craftctl set version="${VER}.${SUBVER}"
+
+      # Install the upstream license file
+      install -Dm644 "${CRAFT_PART_BUILD}/LICENSE" \
+        "${CRAFT_PART_INSTALL}/licenses/gotop"
+
+      # Install the snap license file
+      install -Dm644 "${CRAFT_PROJECT_DIR}/LICENSE" \
+        "${CRAFT_PART_INSTALL}/licenses/snap"
+    # Leverage organize to consolidate the binaries
+    organize:
+      gotop:          usr/bin/gotop

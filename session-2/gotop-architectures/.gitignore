@@ -1,6 +1,0 @@
-# snap artifacts
-/parts/
-/prime/
-/stage/
-/*.snap
-/squashfs-root/

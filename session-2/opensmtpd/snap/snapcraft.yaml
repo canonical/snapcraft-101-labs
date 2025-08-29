@@ -1,0 +1,108 @@
+name: opensmtpd
+base: core24
+# Q: How can I set the version programmatically?
+# adopt-info: opensmtpd
+version: '7.7.0p0'
+summary: secure, reliable, lean, and easy-to configure SMTP server
+description: |
+  OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined
+  by RFC 5321, with some additional standard extensions. It allows ordinary
+  machines to exchange emails with other systems speaking the SMTP protocol.
+
+  Started out of dissatisfaction with other implementations, OpenSMTPD is a fairly
+  complete SMTP implementation.
+
+  OpenSMTPD is primarily developed by Gilles Chehade and Eric Faurot, with
+  contributions from various OpenBSD hackers and members from other communities.
+
+  OpenSMTPD is part of the OpenBSD Project. The software is freely usable and
+  re-usable by everyone under an ISC license.
+
+grade: devel
+confinement: devmode
+
+license: "ISC AND CC-BY-SA-4.0"
+website: https://opensmtpd.org
+
+system-usernames:
+  _daemon_: shared
+
+parts:
+  opensmtpd:
+    # Q: Is there an alternative way I can build this snap?
+    # Q: What are the benefits of compiling from source? From using a stage-package?
+    # Q: What plugin could I use? What options would I specify? How would I do this without a plugin?
+    plugin: autotools
+    source: https://www.opensmtpd.org/archives/opensmtpd-7.7.0p0.tar.gz
+    build-packages: [libevent-dev, libssl-dev]
+    autotools-configure-parameters:
+      - --prefix=/usr
+      - --bindir=/usr/bin
+      - --sbindir=/usr/bin
+      - --libexecdir=/usr/lib
+      - --sysconfdir=/etc
+      - --localstatedir=/var
+      - --runstatedir=/run
+      - --datarootdir=/usr/share
+      # Q: opensmtpd won't run as root. What can we do?
+      # - --with-user-smtpd=root
+      # - --with-user-queue=root
+      # - --with-group-queue=root
+      - --with-user-smtpd=_daemon_
+      - --with-user-queue=_daemon_
+      - --with-group-queue=_daemon_
+      - --with-path-queue=/var/snap/${CRAFT_PROJECT_NAME}/common/var/spool/smtpd
+      - --with-path-empty=/var/snap/${CRAFT_PROJECT_NAME}/common/var/empty
+      - --with-path-mbox=/var/snap/${CRAFT_PROJECT_NAME}/common/var/spool/mail
+      - --with-path-socket=/var/snap/${CRAFT_PROJECT_NAME}/common/var/run
+      - --with-path-pidfile=/var/snap/${CRAFT_PROJECT_NAME}/common/var/run
+      # Q: Can we supply our own certificates? How would we do so?
+      # - --with-path-CAfile=/snap/${CRAFT_PROJECT_NAME}/current/etc/ca-certificates
+    override-build: |
+      craftctl default
+
+      install -Dm644 "${CRAFT_PART_BUILD}/etc/aliases" "${CRAFT_PART_INSTALL}/etc/aliases"
+
+    # plugin: nil
+    # stage-packages: [opensmtpd]
+    # override-build: |
+    #   craftctl default
+
+    #   _ver="$(dpkg-deb -f "${CRAFT_PART_BUILD}/../stage_packages/opensmtpd_"*.deb Version)"
+    #   craftctl set version="$_ver"
+
+  preload:
+    plugin: make
+    source: https://git.launchpad.net/~jdstrand/+git/test-setpriv
+    source-type: git
+    source-depth: 1
+
+apps:
+  opensmtpd:
+    # Q: what commandline options do I need?
+    # Q: What type of daemon should this be?
+    # Q: Can I modify my daemon *type* and provide different commandline options?
+    command: usr/bin/smtpd -F -f $SNAP/etc/smtpd.conf
+    # command-chain: [usr/bin/wrapper.sh]
+    daemon: simple
+    install-mode: disable
+    # Q: What plugs do I think I need before I even start testing?
+    # Q: What plugs do I actually need?
+    # Q: Are there any I might need, but don't for this specific (basic) implementation?
+    plugs: [home, network, network-bind]
+    # Q: when attempting to send a trivial mail via swaks, an error is hit; how to fix?
+    # https://raysnotebook.info/computing/email-opensmtpd.html
+    # swaks --server localhost --port 25 --suppress-data --to dilyn@localhost
+    environment:
+      PATH: "${SNAP}/usr/lib/opensmtpd:$PATH"
+      LD_PRELOAD: "${SNAP}/wraplib.so"
+
+# Q: why doesn't a layout for /var/run work?
+# Q: The path to mail.maildir is hard-coded; how can we get around this?
+#       The path is defined with respect to libexecdir in the source :v
+# layout:
+#   /var/run:
+#     symlink: $SNAP_COMMON/var/run
+layout:
+  /usr/lib/opensmtpd:
+    symlink: $SNAP/usr/lib/opensmtpd

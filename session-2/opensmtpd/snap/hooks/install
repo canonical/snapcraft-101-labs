@@ -1,0 +1,22 @@
+#!/bin/sh -eux
+
+# Q: opensmtpd expects some files in some directories, what about their permissions?
+mkdir -p "${SNAP_COMMON}/etc"             \
+         "${SNAP_COMMON}/var/run"         \
+         "${SNAP_COMMON}/var/empty"       \
+         "${SNAP_COMMON}/var/spool/mail"  \
+         "${SNAP_COMMON}/var/spool/smtpd" \
+         "${SNAP_COMMON}/var/spool/smtpd/purge"
+
+chmod 711 "${SNAP_COMMON}/var/spool/smtpd"
+chmod 700 "${SNAP_COMMON}/var/spool/smtpd/purge"
+
+chown _daemon_:root "${SNAP_COMMON}/var/spool/smtpd/purge"
+
+# Q: How do I update the contents of a file I'm shipping with my snap?
+# Q: Is there a different way I could do this? Say, to save space in the snap
+        # itself but still have the file?
+cp -f "${SNAP}/etc/aliases"    "${SNAP_COMMON}/etc/aliases"
+cp -f "${SNAP}/etc/smtpd.conf" "${SNAP_COMMON}/etc/smtpd.conf"
+
+sed -i 's|etc/mail/aliases|var/snap/opensmtpd/common/etc/aliases|' "${SNAP_COMMON}/etc/smtpd.conf"

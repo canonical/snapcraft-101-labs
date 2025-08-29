@@ -82,10 +82,16 @@ parts:
       # Install the upstream license file
       install -Dm644 "${CRAFT_PART_BUILD}/LICENSE" \
         "${CRAFT_PART_INSTALL}/licenses/gotop"
-
-      # Install the snap license file
-      install -Dm644 "${CRAFT_PROJECT_DIR}/LICENSE" \
-        "${CRAFT_PART_INSTALL}/licenses/snap"
     # Leverage organize to consolidate the binaries
     organize:
       gotop:          usr/bin/gotop
+
+  license:
+    plugin: nil
+    override-pull: |
+      curl -fLo LICENSE \
+        https://github.com/canonical/snapcraft-101-labs/blob/24/LICENSE
+    override-build: |
+      # Install the snap license file
+      install -Dm644 "${CRAFT_PART_SRC}/LICENSE" \
+        "${CRAFT_PART_INSTALL}/licenses/snap"

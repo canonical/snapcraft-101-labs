@@ -1,0 +1,21 @@
+name: simple-server-content
+base: core24
+version: '1.0'
+summary: Content provider for simple-server
+description: |
+  Provides a shared directory to simple-server via the content interface.
+  After installing, create a message.md file under $SNAP_DATA/content/.
+
+grade: stable
+confinement: strict
+
+slots:
+  server-content:
+    interface: content
+    content: server-content
+    read:
+      - $SNAP_DATA
+
+parts:
+  placeholder:
+    plugin: nil

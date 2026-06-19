@@ -1,5 +1,5 @@
 name: simple-server-content
-base: core24
+base: core26
 version: '1.0'
 summary: Content provider for simple-server
 description: |

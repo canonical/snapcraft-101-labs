@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+ 
+if [ -z "$(snapctl get daemon.host)" ]; then
+  snapctl set daemon.host=127.0.0.1
+fi
+ 
+if [ -z "$(snapctl get daemon.port)" ]; then
+  snapctl set daemon.port=4321
+fi
+ 
+if [ -z "$(snapctl get daemon.msg)" ]; then
+  snapctl set daemon.msg="Hello, world!"
+fi
+ 
+msg="$(snapctl get daemon.msg)"
+if echo "$msg" | grep -qi "howdy"; then
+  echo "daemon.msg: Howdy is not a supported greeting" >&2
+  exit 1
+fi
+ 
+snapctl restart simple-server.simple-server

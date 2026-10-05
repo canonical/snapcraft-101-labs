@@ -1,0 +1,65 @@
+name: simple-server
+base: core24
+version: '0.1'
+summary: A simple ncat-based TCP server
+description: |
+  A minimal TCP server snap built for the Snapcraft 101 course.
+
+grade: stable
+confinement: strict
+
+layout:
+  /etc/simple-server:
+    symlink: $SNAP/static/content
+
+plugs:
+  server-content:
+    interface: content
+    content: server-content
+    target: $SNAP/static
+
+adopt-info: scripts
+
+parts:
+  packages:
+    after: [scripts]
+    plugin: nil
+    stage-packages:
+      - ncat
+    override-build: |
+      echo "packages sees version: [$(craftctl get version)]"
+      craftctl default
+    stage:
+      - -etc
+      - -usr/lib/x86_64-linux-gnu/liblua5.4-c++*
+      - -usr/sbin
+      - -usr/share/doc
+      - -usr/share/lintian
+      - -usr/share/man
+      - -usr/share/perl5
+      - -var
+  scripts:
+    plugin: dump
+    source: ./scripts
+    build-packages:
+      - git
+    organize:
+      '*': bin/
+    override-pull: |
+      craftctl default
+    override-build: |
+      craftctl default
+      version="$(
+        cd "${CRAFT_PROJECT_DIR}"
+        git describe --tag
+      )"
+      craftctl set version="${version}"
+
+apps:
+  simple-server:
+    command: bin/simple-server.sh
+    daemon: simple
+    restart-condition: on-failure
+    plugs:
+      - network-bind
+      - server-content

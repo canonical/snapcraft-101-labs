@@ -1,0 +1,24 @@
+name: simple-server
+base: core24
+version: '0.1'
+summary: A simple ncat-based TCP server
+description: |
+  A minimal TCP server snap built for the Snapcraft 101 course.
+
+grade: devel
+confinement: devmode
+
+parts:
+  packages:
+    plugin: nil
+    stage-packages:
+      - ncat
+  scripts:
+    plugin: dump
+    source: ./scripts
+    organize:
+      '*': bin/
+
+apps:
+  simple-server:
+    command: bin/simple-server.sh

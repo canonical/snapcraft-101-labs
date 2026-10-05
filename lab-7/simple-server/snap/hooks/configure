@@ -19,4 +19,4 @@ if echo "$msg" | grep -qi "howdy"; then
   exit 1
 fi
  
-snapctl restart simple-server.simple-server
+snapctl restart "$SNAP_INSTANCE_NAME.simple-server"

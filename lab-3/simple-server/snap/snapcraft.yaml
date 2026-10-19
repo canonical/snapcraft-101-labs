@@ -17,7 +17,7 @@ parts:
     plugin: dump
     source: ./scripts
     organize:
-      '*': bin/
+      simple-server.sh: bin/simple-server.sh
 
 apps:
   simple-server:

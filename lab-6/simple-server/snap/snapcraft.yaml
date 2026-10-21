@@ -44,7 +44,7 @@ parts:
     build-packages:
       - git
     organize:
-      '*': bin/
+      simple-server.sh: bin/simple-server.sh
     override-pull: |
       craftctl default
     override-build: |

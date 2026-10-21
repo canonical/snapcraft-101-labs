@@ -29,7 +29,7 @@ parts:
     override-build: |
       echo "packages sees version: [$(craftctl get version)]"
       craftctl default
-    stage:
+    prime:
       - -etc
       - -usr/lib/x86_64-linux-gnu/liblua5.4-c++*
       - -usr/sbin

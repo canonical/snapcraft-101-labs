@@ -5,7 +5,7 @@ summary: A simple ncat-based TCP server
 description: |
   A minimal TCP server snap built for the Snapcraft 101 course.
 
-grade: stable
+grade: devel
 confinement: strict
 
 layout:

@@ -15,7 +15,7 @@ layout:
 plugs:
   server-content:
     interface: content
-    content: server-content
+    content: server-content-1
     target: $SNAP/static
 
 adopt-info: scripts

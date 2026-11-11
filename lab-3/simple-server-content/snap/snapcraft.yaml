@@ -12,7 +12,7 @@ confinement: strict
 slots:
   server-content:
     interface: content
-    content: server-content
+    content: server-content-1
     read:
       - $SNAP_DATA
 

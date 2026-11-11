@@ -1,6 +1,6 @@
 name: simple-server-content
 base: core26
-version: '1.0'
+version: '1.0'  # a finished provider: students install it, they don't develop it
 summary: Content provider for simple-server
 description: |
   Provides a shared directory to simple-server via the content interface.
@@ -12,10 +12,10 @@ confinement: strict
 slots:
   server-content:
     interface: content
-    content: server-content-1
+    content: server-content-1  # the ABI version of what is shared: change it when old consumers can't read it
     read:
-      - $SNAP_DATA
+      - $SNAP_DATA  # share the writable data dir; message.md goes in $SNAP_DATA/content
 
 parts:
   placeholder:
-    plugin: nil
+    plugin: nil  # nothing to build: the snap only provides the slot

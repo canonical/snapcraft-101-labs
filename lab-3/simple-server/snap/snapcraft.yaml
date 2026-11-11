@@ -5,19 +5,19 @@ summary: A simple ncat-based TCP server
 description: |
   A minimal TCP server snap built for the Snapcraft 101 course.
 
-grade: devel
-confinement: devmode
+grade: devel  # devel snaps can't go to candidate or stable; Lab 6 sets stable
+confinement: devmode  # no enforcement yet; Lab 3 switches to strict
 
 parts:
   packages:
-    plugin: nil
+    plugin: nil  # nothing to compile: stage-packages brings in the prebuilt ncat
     stage-packages:
       - ncat
   scripts:
-    plugin: dump
+    plugin: dump  # copy the files from source as they are
     source: ./scripts
     organize:
-      simple-server.sh: bin/simple-server.sh
+      simple-server.sh: bin/simple-server.sh  # where apps.command expects it
 
 apps:
   simple-server:

@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
  
+# Defaults: set each key only while it is still empty (first install).
 if [ -z "$(snapctl get daemon.host)" ]; then
   snapctl set daemon.host=127.0.0.1
 fi
@@ -13,10 +14,12 @@ if [ -z "$(snapctl get daemon.msg)" ]; then
   snapctl set daemon.msg="Hello, world!"
 fi
  
+# Validate: exit 1 rejects the change, and snapd rolls the configuration back.
 msg="$(snapctl get daemon.msg)"
 if echo "$msg" | grep -qi "howdy"; then
   echo "daemon.msg: Howdy is not a supported greeting" >&2
   exit 1
 fi
  
+# Restart the daemon so it reads the new configuration.
 snapctl restart "$SNAP_INSTANCE_NAME.simple-server"

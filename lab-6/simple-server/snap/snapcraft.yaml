@@ -5,31 +5,32 @@ summary: A simple ncat-based TCP server
 description: |
   A minimal TCP server snap built for the Snapcraft 101 course.
 
-grade: devel
+grade: devel  # devel snaps can't go to candidate or stable; Lab 6 sets stable
 confinement: strict
 
 layout:
-  /etc/simple-server:
+  /etc/simple-server:  # the script reads /etc/simple-server/message.md; this maps it to the content
     symlink: $SNAP/static/content
 
 plugs:
   server-content:
     interface: content
-    content: server-content-1
-    target: $SNAP/static
+    content: server-content-1  # must match the provider's content identifier
+    target: $SNAP/static  # the provider's files appear here
 
-adopt-info: scripts
+adopt-info: scripts  # the version comes from the scripts part (craftctl set version)
 
 parts:
   packages:
-    after: [scripts]
-    plugin: nil
+    after: [scripts]  # build scripts first, so the version is set before packages reads it
+    plugin: nil  # nothing to compile: stage-packages brings in the prebuilt ncat
     stage-packages:
       - ncat
+    # print the version this part sees, to show the build order (Lab 5)
     override-build: |
       echo "packages sees version: [$(craftctl get version)]"
       craftctl default
-    prime:
+    prime:  # keep ncat's extras (docs, man pages, Lua, Perl) out of the snap
       - -etc
       - -usr/lib/x86_64-linux-gnu/liblua5.4-c++*
       - -usr/sbin
@@ -39,14 +40,16 @@ parts:
       - -usr/share/perl5
       - -var
   scripts:
-    plugin: dump
+    plugin: dump  # copy the files from source as they are
     source: ./scripts
     build-packages:
-      - git
+      - git  # git describe runs inside the build container
     organize:
-      simple-server.sh: bin/simple-server.sh
+      simple-server.sh: bin/simple-server.sh  # where apps.command expects it
+    # a stub: the place to patch sources after pulling
     override-pull: |
       craftctl default
+    # run the default dump build, then set the version from the git tag
     override-build: |
       craftctl default
       version="$(
@@ -58,8 +61,8 @@ parts:
 apps:
   simple-server:
     command: bin/simple-server.sh
-    daemon: simple
-    restart-condition: on-failure
+    daemon: simple  # run as a service; the process itself is the service
+    restart-condition: on-failure  # restart only after a non-zero exit (Lab 4)
     plugs:
-      - network-bind
+      - network-bind  # lets ncat listen on a port under strict confinement
       - server-content

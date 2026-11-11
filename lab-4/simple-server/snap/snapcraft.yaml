@@ -5,33 +5,33 @@ summary: A simple ncat-based TCP server
 description: |
   A minimal TCP server snap built for the Snapcraft 101 course.
 
-grade: devel
+grade: devel  # devel snaps can't go to candidate or stable; Lab 6 sets stable
 confinement: strict
 
 layout:
-  /etc/simple-server:
+  /etc/simple-server:  # the script reads /etc/simple-server/message.md; this maps it to the content
     symlink: $SNAP/static/content
 
 plugs:
   server-content:
     interface: content
-    content: server-content-1
-    target: $SNAP/static
+    content: server-content-1  # must match the provider's content identifier
+    target: $SNAP/static  # the provider's files appear here
 
 parts:
   packages:
-    plugin: nil
+    plugin: nil  # nothing to compile: stage-packages brings in the prebuilt ncat
     stage-packages:
       - ncat
   scripts:
-    plugin: dump
+    plugin: dump  # copy the files from source as they are
     source: ./scripts
     organize:
-      simple-server.sh: bin/simple-server.sh
+      simple-server.sh: bin/simple-server.sh  # where apps.command expects it
 
 apps:
   simple-server:
     command: bin/simple-server.sh
     plugs:
-      - network-bind
+      - network-bind  # lets ncat listen on a port under strict confinement
       - server-content

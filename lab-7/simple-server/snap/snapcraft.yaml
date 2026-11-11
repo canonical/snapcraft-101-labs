@@ -1,6 +1,5 @@
 name: simple-server
 base: core26
-version: '0.1'
 summary: A simple ncat-based TCP server
 description: |
   A minimal TCP server snap built for the Snapcraft 101 course.
